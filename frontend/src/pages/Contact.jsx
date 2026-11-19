@@ -65,7 +65,7 @@ export default function Contact() {
           "@context": "https://schema.org",
           "@type": "ContactPage",
           name: "Contact Support | vone_dm",
-          mainEntity: { "@type": "ContactPoint", email: "support@dmpanda.com", contactType: "customer support" },
+          mainEntity: { "@type": "ContactPoint", email: "saichanduvlk@gmail.com", contactType: "customer support" },
         }}
       />
 
@@ -90,13 +90,13 @@ export default function Contact() {
               <div className="inline-flex items-center gap-2 rounded-full bg-gray-900 text-white dark:bg-white dark:text-gray-900 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em]">
                 <Mail className="w-3.5 h-3.5" /> Official Support Email
               </div>
-              <h3 className="mt-5 text-2xl font-bold">support@dmpanda.com</h3>
+              <h3 className="mt-5 text-2xl font-bold">saichanduvlk@gmail.com</h3>
               <p className="mt-4 text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
                 Email the support team with your vone_dm login email, the Instagram account involved, and a short
                 description of what you expected versus what happened.
               </p>
               <a
-                href="mailto:support@dmpanda.com?subject=DM%20Panda%20Support"
+                href="mailto:saichanduvlk@gmail.com?subject=vone_dm%20Support"
                 className="mt-6 inline-flex items-center justify-center w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 py-3.5 sm:py-4 rounded-xl font-bold text-base hover:bg-gray-800 dark:hover:bg-gray-200 transition-all shadow-lg active:scale-[0.98]"
               >
                 Email Support

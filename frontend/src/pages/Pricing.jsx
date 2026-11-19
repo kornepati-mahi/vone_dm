@@ -228,7 +228,7 @@ export default function Pricing() {
         description="Find the best pricing plan for automating your Instagram DMs. Start free, upgrade as you grow. Safe, certified, and compliant pricing."
         keywords="dm panda pricing, instagram dm bot pricing, cheap instagram dm automations, instagram auto reply cost"
         schema={[
-          { "@context": "https://schema.org", "@type": "WebPage", name: "Pricing Plans | vone_dm", url: "https://dmpanda.com/pricing" },
+          { "@context": "https://schema.org", "@type": "WebPage", name: "Pricing Plans | vone_dm", url: "https://vone-dm.com/pricing" },
         ]}
       />
 

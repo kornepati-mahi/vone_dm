@@ -582,7 +582,7 @@ export function Support() {
             </ul>
           )}
           <div className="mt-5 pt-4 border-t border-gray-100 dark:border-white/[0.06] text-xs text-gray-500">
-            Or email <a href="mailto:support@dmpanda.com" className="text-ig-purple font-semibold">support@dmpanda.com</a> directly.
+            Or email <a href="mailto:saichanduvlk@gmail.com" className="text-ig-purple font-semibold">saichanduvlk@gmail.com</a> directly.
           </div>
         </div>
       </div>

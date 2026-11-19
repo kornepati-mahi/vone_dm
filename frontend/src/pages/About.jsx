@@ -24,7 +24,7 @@ export default function About() {
         description="Learn how vone_dm helps creators, brands, and businesses scale their Instagram engagement with secure, compliant direct message automation."
         keywords="about dm panda, instagram automation company, instagram marketing tool team"
         schema={[
-          { "@context": "https://schema.org", "@type": "AboutPage", name: "About Us | vone_dm", url: "https://dmpanda.com/about" },
+          { "@context": "https://schema.org", "@type": "AboutPage", name: "About Us | vone_dm", url: "https://vone-dm.com/about" },
         ]}
       />
 

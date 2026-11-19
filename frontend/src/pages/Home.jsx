@@ -56,8 +56,8 @@ export default function Home() {
         description="Automate your Instagram DMs, post comments, reels, story mentions, and link-in-bio with vone_dm. Certified Meta Business Partner since 2021. Safe, reliable, and affordable."
         keywords="instagram automation, instagram dm automation tool, comment auto reply, auto send message instagram, story mention auto reply, reel comment automation, link in bio page, dm panda"
         schema={[
-          { "@context": "https://schema.org", "@type": "WebSite", name: "vone_dm", url: "https://dmpanda.com/", description: "Instagram DM and Comment Automation Tool for creators and businesses." },
-          { "@context": "https://schema.org", "@type": "Organization", name: "vone_dm", url: "https://dmpanda.com/", logo: "/images/vone-logo.svg" },
+          { "@context": "https://schema.org", "@type": "WebSite", name: "vone_dm", url: "https://vone-dm.com/", description: "Instagram DM and Comment Automation Tool for creators and businesses." },
+          { "@context": "https://schema.org", "@type": "Organization", name: "vone_dm", url: "https://vone-dm.com/", logo: "/images/vone-logo.svg" },
           { "@context": "https://schema.org", "@type": "SoftwareApplication", name: "vone_dm", operatingSystem: "Web-based", applicationCategory: "BusinessApplication", description: "Certified Meta Partner Instagram automation platform for DMs, comments, reels, stories, and link-in-bio." },
         ]}
       />

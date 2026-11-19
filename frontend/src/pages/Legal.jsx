@@ -143,7 +143,7 @@ export function Privacy() {
         <Link to="/contact" className="text-ig-purple font-semibold">
           our support page
         </Link>{" "}
-        or email support@dmpanda.com.
+        or email saichanduvlk@gmail.com.
       </p>
     </LegalLayout>
   );
@@ -159,7 +159,7 @@ export function Terms() {
     >
       <p>
         Welcome to vone_dm! These terms and conditions outline the rules and regulations for the use of vone_dm's
-        Website, located at https://dmpanda.com.
+        Website, located at https://vone-dm.com.
       </p>
       <p>
         By accessing this website we assume you accept these terms and conditions. Do not continue to use vone_dm if

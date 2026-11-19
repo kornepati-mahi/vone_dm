@@ -82,10 +82,10 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:support@dmpanda.com"
+                  href="mailto:saichanduvlk@gmail.com"
                   className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm transition-colors duration-200 block py-0.5"
                 >
-                  support@dmpanda.com
+                  saichanduvlk@gmail.com
                 </a>
               </li>
               <li>

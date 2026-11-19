@@ -50,7 +50,7 @@ export default function Features() {
         description="Explore all 23 powerful features: automated comment DMs, viral Reel auto-replies, interactive carousels, follow gates, and AI spam protection."
         keywords="instagram automation features, comment reply bot, story mention auto reply, follow gate instagram dms, link in bio creator, carousel templates"
         schema={[
-          { "@context": "https://schema.org", "@type": "WebPage", name: "Instagram Automation Features | vone_dm", description: "Explore vone_dm's full suite of 23 Instagram automation features.", url: "https://dmpanda.com/features" },
+          { "@context": "https://schema.org", "@type": "WebPage", name: "Instagram Automation Features | vone_dm", description: "Explore vone_dm's full suite of 23 Instagram automation features.", url: "https://vone-dm.com/features" },
         ]}
       />
 
