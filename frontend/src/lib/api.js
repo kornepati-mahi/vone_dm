@@ -5,6 +5,7 @@ export async function api(path, options = {}) {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
+      "X-App-Context": "frontend",
       ...(options.headers || {}),
     },
     ...options,

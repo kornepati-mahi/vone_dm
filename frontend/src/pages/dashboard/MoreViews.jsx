@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { BarChart3, MessageSquare, Send, Users, TrendingUp, Instagram, Save, Loader2, LifeBuoy, Link2, ExternalLink, Trash2 } from "lucide-react";
+import { BarChart3, MessageSquare, Send, Users, TrendingUp, Instagram, Save, Loader2, LifeBuoy, Link2, ExternalLink, Trash2, Zap, LogOut } from "lucide-react";
 import Seo from "../../components/Seo.jsx";
 import { get, put, post } from "../../lib/api.js";
 import { useAuth } from "../../lib/AuthContext.jsx";
 import { useToast } from "../../lib/ToastContext.jsx";
+import InstagramConnectButton from "../../components/InstagramConnectButton.jsx";
 
 export function Analytics() {
   const [data, setData] = useState(null);
@@ -37,7 +38,7 @@ export function Analytics() {
 
   return (
     <div className="space-y-6">
-      <Seo title="Analytics | DM Panda Dashboard" noIndex />
+      <Seo title="Analytics | vone_dm Dashboard" noIndex />
       <div>
         <h1 className="text-xl sm:text-2xl font-black">Performance Analytics</h1>
         <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
@@ -94,13 +95,22 @@ export function Analytics() {
 }
 
 export function AccountSettings() {
-  const { user, setUser, refresh } = useAuth();
+  const { user, setUser, refresh, logout } = useAuth();
   const { showSuccess, showError } = useToast();
   const [profile, setProfile] = useState({ name: "", email: "" });
   const [accounts, setAccounts] = useState([]);
   const [passwords, setPasswords] = useState({ current: "", next: "", confirm: "" });
+  const [firstPassword, setFirstPassword] = useState("");
   const [busyP, setBusyP] = useState(false);
   const [busyW, setBusyW] = useState(false);
+  const [busyFirst, setBusyFirst] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState("");
+  const [busyDelete, setBusyDelete] = useState(false);
+  const [webhook, setWebhook] = useState(null);
+  const [busyWebhook, setBusyWebhook] = useState(false);
+  const [pollResult, setPollResult] = useState(null);
+  const [polling, setPolling] = useState(false);
+  const [busyDisconnect, setBusyDisconnect] = useState(null);
 
   useEffect(() => {
     if (user) setProfile({ name: user.name || "", email: user.email || "" });
@@ -155,19 +165,97 @@ export function AccountSettings() {
     }
   };
 
-  const connectInstagram = async () => {
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const d = await get("/api/instagram/webhook-config");
+        if (alive) setWebhook(d);
+      } catch {
+        if (alive) setWebhook(null);
+      }
+    })();
+    return () => { alive = false; };
+  }, []);
+
+  const disconnectAccount = async (account) => {
+    if (!window.confirm(`Disconnect @${account.username || "this account"}?`)) return;
+    setBusyDisconnect(account.id);
     try {
-      const d = await get("/api/instagram/connect-url");
-      if (d && d.url) window.location.href = d.url;
-      else showError("Instagram connection is not configured on this server.");
+      await post("/api/instagram/disconnect", { account_id: account.id });
+      const d = await get("/api/instagram/accounts");
+      setAccounts(Array.isArray(d) ? d : d.accounts || []);
+      await refresh();
+      showSuccess("Instagram account disconnected.");
     } catch (err) {
-      showError(err.message || "Failed to start Instagram login.");
+      showError(err.message || "Could not disconnect account.");
+    } finally {
+      setBusyDisconnect(null);
+    }
+  };
+
+  const runPoll = async () => {
+    setPolling(true);
+    setPollResult(null);
+    try {
+      const d = await post("/api/automations/poll", {});
+      setPollResult(d);
+      showSuccess(`Checked ${d.checked} comments · ${d.matched} matched · ${d.public_replies} replies · ${d.dms_sent} DMs sent.`);
+    } catch (err) {
+      showError(err.message || "Could not run automations.");
+    } finally {
+      setPolling(false);
+    }
+  };
+
+  const enableWebhook = async () => {
+    const account = accounts[0];
+    if (!account) return showError("Connect an Instagram account first.");
+    setBusyWebhook(true);
+    try {
+      await post("/api/instagram/subscribe", { account_id: account.id });
+      showSuccess("Webhook activated. Automations will now fire on Instagram events.");
+    } catch (err) {
+      showError(err.message || "Could not activate the webhook.");
+    } finally {
+      setBusyWebhook(false);
+    }
+  };
+
+  const deleteAccount = async () => {
+    if (!window.confirm("Permanently delete your account? This cannot be undone.")) return;
+    setBusyDelete(true);
+    try {
+      await post("/api/account/delete", user?.hasPassword
+        ? { password: deleteConfirm }
+        : { confirm: deleteConfirm });
+      await logout();
+      window.location.href = "/login?message=" + encodeURIComponent("Your account has been deleted.");
+    } catch (err) {
+      showError(err.message || "Could not delete your account.");
+      setBusyDelete(false);
+    }
+  };
+
+  const saveFirstPassword = async (e) => {
+    e.preventDefault();
+    if (firstPassword.length < 8) return showError("Password must be at least 8 characters long.");
+    setBusyFirst(true);
+    try {
+      await post("/api/account/set-password", { password: firstPassword });
+      showSuccess("Password set successfully!");
+      setFirstPassword("");
+      await refresh();
+    } catch (err) {
+      showError(err.message || "Failed to set password.");
+    } finally {
+      setBusyFirst(false);
     }
   };
 
   return (
     <div className="space-y-6">
-      <Seo title="Account Settings | DM Panda Dashboard" noIndex />
+      <Seo title="Account Settings | vone_dm Dashboard" noIndex />
       <div>
         <h1 className="text-xl sm:text-2xl font-black">Account Settings</h1>
         <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Manage your profile, password, and connected accounts.</p>
@@ -203,6 +291,31 @@ export function AccountSettings() {
           </button>
         </form>
 
+        {!user?.hasPassword && (
+          <form onSubmit={saveFirstPassword} className="rounded-2xl bg-white dark:bg-white/[0.03] border border-gray-100 dark:border-white/[0.06] p-6">
+            <h2 className="font-black mb-1">Set a Password</h2>
+            <p className="text-xs text-gray-500 mb-4">
+              You signed in with Google. Add a password so you can also log in with your email.
+            </p>
+            <input
+              type="password"
+              value={firstPassword}
+              onChange={(e) => setFirstPassword(e.target.value)}
+              placeholder="New password (8+ characters)"
+              className="w-full text-sm rounded-xl border border-gray-300 dark:border-neutral-700 px-3.5 py-3 bg-white dark:bg-neutral-950 focus:outline-none focus:border-ig-purple"
+              required
+            />
+            <button
+              type="submit"
+              disabled={busyFirst}
+              className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-900 text-white dark:bg-white dark:text-gray-900 text-sm font-bold disabled:opacity-60"
+            >
+              {busyFirst ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />} Set Password
+            </button>
+          </form>
+        )}
+
+        {user?.hasPassword && (
         <form onSubmit={savePassword} className="rounded-2xl bg-white dark:bg-white/[0.03] border border-gray-100 dark:border-white/[0.06] p-6">
           <h2 className="font-black mb-4">Change Password</h2>
           <div className="space-y-4">
@@ -231,6 +344,7 @@ export function AccountSettings() {
             {busyW ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />} Update Password
           </button>
         </form>
+        )}
       </div>
 
       <div className="rounded-2xl bg-white dark:bg-white/[0.03] border border-gray-100 dark:border-white/[0.06] p-6">
@@ -243,12 +357,7 @@ export function AccountSettings() {
               Connect your Instagram Business or Creator account. Account must be public.
             </p>
           </div>
-          <button
-            onClick={connectInstagram}
-            className="shrink-0 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] text-white text-xs font-bold"
-          >
-            + Connect Account
-          </button>
+          <InstagramConnectButton full={false} className="!py-2.5 shrink-0" />
         </div>
         {accounts.length === 0 ? (
           <div className="text-center py-8 rounded-2xl border border-dashed border-gray-200 dark:border-white/10">
@@ -265,15 +374,65 @@ export function AccountSettings() {
               >
                 <div className="min-w-0">
                   <p className="text-sm font-bold truncate">@{a.username || a.ig_user_id}</p>
-                  <p className="text-[11px] text-gray-500">{a.account_type || "Business"} · connected {a.connected_at ? new Date(a.connected_at).toLocaleDateString() : "recently"}</p>
+                  <p className="text-[11px] text-gray-500 break-all">ID {a.ig_user_id} · {a.account_type || "Business"} · connected {a.connected_at ? new Date(a.connected_at).toLocaleDateString() : "recently"}</p>
                 </div>
-                <span className="text-[10px] font-black uppercase bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 px-2 py-1 rounded-md">
-                  {a.status || "active"}
-                </span>
+                <div className="flex shrink-0 items-center gap-2">
+                  <span className="text-[10px] font-black uppercase bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 px-2 py-1 rounded-md">
+                    {a.status || "active"}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => disconnectAccount(a)}
+                    disabled={busyDisconnect === a.id}
+                    title="Log out / disconnect this account"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-red-200 dark:border-red-900/60 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 text-[11px] font-bold disabled:opacity-50"
+                  >
+                    {busyDisconnect === a.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <LogOut className="w-3.5 h-3.5" />}
+                    Logout
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
         )}
+      </div>
+
+      <div className="rounded-2xl bg-white dark:bg-white/[0.03] border border-gray-100 dark:border-white/[0.06] p-6">
+        <h2 className="font-black mb-1">Automation Delivery</h2>
+        <p className="text-xs text-gray-500 mb-4">
+          Run automations on your recent comments, or copy these into your Meta app's webhook settings for live delivery.
+        </p>
+        <button
+          type="button"
+          onClick={runPoll}
+          disabled={polling}
+          className="mb-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#405DE6] to-[#833AB4] text-white text-sm font-bold disabled:opacity-60"
+        >
+          {polling ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />} Run automations now
+        </button>
+        {pollResult && (
+          <p className="mb-4 text-[11px] text-gray-500">
+            Checked {pollResult.checked} · matched {pollResult.matched} · public replies {pollResult.public_replies} · DMs sent {pollResult.dms_sent} · DMs blocked {pollResult.dms_failed}
+          </p>
+        )}
+        <div className="space-y-2 text-xs">
+          <div className="rounded-xl bg-gray-50 dark:bg-white/[0.04] p-3">
+            <p className="font-bold text-gray-500">Callback URL</p>
+            <p className="font-mono break-all mt-0.5">{webhook?.callback_url || "—"}</p>
+          </div>
+          <div className="rounded-xl bg-gray-50 dark:bg-white/[0.04] p-3">
+            <p className="font-bold text-gray-500">Verify token</p>
+            <p className="font-mono break-all mt-0.5">{webhook?.verify_token || "—"}</p>
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={enableWebhook}
+          disabled={busyWebhook || accounts.length === 0}
+          className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-900 text-white dark:bg-white dark:text-gray-900 text-sm font-bold disabled:opacity-60"
+        >
+          {busyWebhook ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />} Activate webhook
+        </button>
       </div>
 
       <div className="rounded-2xl border border-red-100 dark:border-red-900/40 bg-red-50/50 dark:bg-red-950/20 p-6">
@@ -282,12 +441,29 @@ export function AccountSettings() {
           Deleting your account will permanently remove all your data, campaigns, and settings. This action is
           permanent and cannot be undone.
         </p>
-        <a
-          href="/delete-account-guide"
-          className="inline-block px-5 py-2.5 rounded-xl border border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 text-sm font-bold"
-        >
-          Read Delete Account Guide
-        </a>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <input
+            type="password"
+            value={deleteConfirm}
+            onChange={(e) => setDeleteConfirm(e.target.value)}
+            placeholder={user?.hasPassword ? "Enter your password" : "Type DELETE"}
+            className="flex-1 text-sm rounded-xl border border-red-200 dark:border-red-900/60 px-3.5 py-3 bg-white dark:bg-neutral-950 focus:outline-none focus:border-red-500"
+          />
+          <button
+            type="button"
+            onClick={deleteAccount}
+            disabled={busyDelete || !deleteConfirm}
+            className="px-5 py-3 rounded-xl bg-red-600 text-white text-sm font-bold disabled:opacity-50 flex items-center justify-center gap-2"
+          >
+            {busyDelete && <Loader2 className="w-4 h-4 animate-spin" />} Delete My Account
+          </button>
+          <a
+            href="/delete-account-guide"
+            className="px-5 py-3 rounded-xl border border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 text-sm font-bold text-center"
+          >
+            Read Guide
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -334,7 +510,7 @@ export function Support() {
 
   return (
     <div className="space-y-6">
-      <Seo title="Support | DM Panda Dashboard" noIndex />
+      <Seo title="Support | vone_dm Dashboard" noIndex />
       <div>
         <h1 className="text-xl sm:text-2xl font-black">Support</h1>
         <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Our automation experts are here to help.</p>
@@ -415,6 +591,7 @@ export function Support() {
 }
 
 export function SuperProfileView() {
+  const { user } = useAuth();
   const { showSuccess, showError } = useToast();
   const [profile, setProfile] = useState(null);
   const [form, setForm] = useState({ bio: "", links: [] });
@@ -462,7 +639,7 @@ export function SuperProfileView() {
 
   return (
     <div className="space-y-6">
-      <Seo title="Super Profile | DM Panda Dashboard" noIndex />
+      <Seo title="Super Profile | vone_dm Dashboard" noIndex />
       <div>
         <h1 className="text-xl sm:text-2xl font-black">Super Profile (Link in Bio)</h1>
         <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
@@ -556,9 +733,9 @@ export function SuperProfileView() {
           <h2 className="font-black mb-4">Preview</h2>
           <div className="mx-auto w-full max-w-xs rounded-[28px] border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#0d0d0f] p-5 text-center shadow-xl">
             <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#405DE6] to-[#833AB4] mb-3 flex items-center justify-center text-white text-xl font-black">
-              D
+              {(user?.name || user?.email || "U").charAt(0).toUpperCase()}
             </div>
-            <p className="font-black text-sm">@your_handle</p>
+            <p className="font-black text-sm">@{profile?.slug || user?.name?.toLowerCase().replace(/\s+/g, "") || "your-profile"}</p>
             <p className="text-xs text-gray-500 mt-1 line-clamp-2">{form.bio || "Your bio appears here"}</p>
             <div className="mt-4 space-y-2">
               {(() => {
@@ -578,7 +755,7 @@ export function SuperProfileView() {
               })()}
             </div>
             <p className="mt-4 text-[10px] text-gray-400 flex items-center justify-center gap-1">
-              <ExternalLink className="w-3 h-3" /> Powered by DM Panda
+              <ExternalLink className="w-3 h-3" /> Powered by vone_dm
             </p>
           </div>
         </div>

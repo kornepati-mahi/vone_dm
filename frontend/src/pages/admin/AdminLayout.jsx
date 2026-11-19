@@ -115,7 +115,7 @@ export default function AdminLayout() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-neutral-950">
         <div className="text-center">
-          <img src="/images/logo-96.webp" alt="" className="w-12 h-12 mx-auto mb-4 animate-pulse" />
+          <img src="/images/vone-logo.svg" alt="" className="w-12 h-12 mx-auto mb-4 animate-pulse" />
           <p className="text-sm text-gray-600 dark:text-gray-400">Loading…</p>
         </div>
       </div>
@@ -127,8 +127,8 @@ export default function AdminLayout() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-neutral-950 px-4">
         <div className="w-full max-w-md">
           <div className="text-center mb-6">
-            <img src="/images/logo-96.webp" alt="DM Panda" className="w-12 h-12 mx-auto mb-3" />
-            <h1 className="text-xl font-black">DM Panda Admin</h1>
+            <img src="/images/vone-logo.svg" alt="vone_dm" className="w-12 h-12 mx-auto mb-3" />
+            <h1 className="text-xl font-black">vone_dm Admin</h1>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               {isAuthenticated
                 ? "Your account doesn't have admin access."
@@ -214,8 +214,8 @@ export default function AdminLayout() {
     <div className="flex flex-col h-full">
       <div className="h-16 sm:h-[68px] flex items-center justify-between px-5 border-b border-neutral-200/70 dark:border-white/[0.07]">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/images/logo-96.webp" alt="DM Panda" className="h-8 w-auto" />
-          <span className="font-black text-lg tracking-tight hidden sm:block">DM Panda</span>
+          <img src="/images/vone-logo.svg" alt="vone_dm" className="h-8 w-auto" />
+          <span className="font-black text-lg tracking-tight hidden sm:block">vone_dm</span>
           <span className="text-[9px] font-black uppercase tracking-wider bg-gradient-to-r from-[#405DE6] to-[#833AB4] text-white px-2 py-0.5 rounded-full">
             Admin
           </span>
@@ -225,7 +225,7 @@ export default function AdminLayout() {
         </button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-5">
+      <nav className="flex-1 overflow-y-auto scrollbar-none py-4 px-3 space-y-5">
         {NAV.map((group) => (
           <div key={group.section}>
             <p className="px-3 mb-2 text-[10px] font-black uppercase tracking-wider text-gray-400 dark:text-gray-500">
@@ -376,7 +376,7 @@ export default function AdminLayout() {
           </div>
         </header>
 
-        <main className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+        <main className="w-full p-4 sm:p-6 lg:p-8">
           <Outlet />
         </main>
       </div>

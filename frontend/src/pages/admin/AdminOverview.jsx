@@ -43,7 +43,7 @@ export default function AdminOverview() {
 
   return (
     <div className="space-y-6">
-      <Seo title="Admin | DM Panda" noIndex />
+      <Seo title="Admin | vone_dm" noIndex />
 
       <div className="rounded-3xl overflow-hidden relative bg-gray-900 p-6 sm:p-8">
         <div

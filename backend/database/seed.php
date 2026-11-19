@@ -1,9 +1,9 @@
 <?php
-/** One-off seeder: plans (from plans.json), demo user, blog posts, daily stats. */
+/** One-off seeder: plans (from plans.json), blog posts, optional admin. */
 declare(strict_types=1);
 
 const DB_HOST = '127.0.0.1';
-const DB_PORT = '3307';
+const DB_PORT = '3306';
 const DB_NAME = 'dmpanda';
 const DB_USER = 'root';
 const DB_PASS = '';
@@ -42,45 +42,35 @@ foreach ($plans as $p) {
 }
 echo 'plans: ' . count($plans) . "\n";
 
-/* ---- demo user ---- */
-$pdo->exec('DELETE FROM users');
-$ins = $pdo->prepare('INSERT INTO users (name, email, password_hash, email_verified, plan_code, status) VALUES (?,?,?,?,?,?)');
-$ins->execute([
-    'Demo User', 'demo@dmpanda.test', password_hash('demo1234', PASSWORD_DEFAULT),
-    1, 'pro', 'active',
-]);
-$uid = (int) $pdo->lastInsertId();
-echo "demo user id={$uid} (demo@dmpanda.test / demo1234)\n";
-
-/* ---- demo automations ---- */
-$pdo->exec('DELETE FROM automations');
-$ins = $pdo->prepare(
-    'INSERT INTO automations (user_id, type, name, keyword, reply_text, public_reply, media_url, buttons, status)
-     VALUES (?,?,?,?,?,?,?,?,?)'
-);
-$autos = [
-    ['dm', 'Welcome DM', 'price', 'Hey! Thanks for commenting "price" — here is our latest price list. Reply with any question and we will get back instantly.', null, '', null, 'active'],
-    ['post', 'Post Comment → DM', 'guide', 'Thanks for your comment! Sending the free guide to your DMs right now. 📩', 'Thanks for your comment! Sending the free guide to your DMs right now.', '', null, 'active'],
-    ['reel', 'Reel Comment → DM', 'link', 'Here is the link you asked for in your DM!', 'Here is the link you asked for!', '', null, 'active'],
-    ['story', 'Story Mention DM', 'mention', 'Thanks for sharing our story! Here is your exclusive code STORY10 🎉', null, '', null, 'active'],
-    ['global-triggers', 'Global Trigger', 'hi', 'Hi there! 👋 How can we help you today?', null, '', null, 'active'],
-    ['comment-moderation', 'Hide bad words', 'spam', null, null, '', null, 'active'],
-];
-foreach ($autos as $a) {
-    $ins->execute([$uid, $a[0], $a[1], $a[2], $a[3], $a[4], $a[5], $a[6], $a[7]]);
+/* ---- real admin account (only when credentials are supplied) ---------- */
+// Set ADMIN_EMAIL / ADMIN_PASSWORD (and optionally ADMIN_NAME) in the
+// environment before running the seeder. No sample accounts are created.
+$adminEmail = strtolower(trim((string) (getenv('ADMIN_EMAIL') ?: '')));
+$adminPass  = (string) (getenv('ADMIN_PASSWORD') ?: '');
+if ($adminEmail !== '' && $adminPass !== '') {
+    if (!filter_var($adminEmail, FILTER_VALIDATE_EMAIL) || strlen($adminPass) < 8) {
+        fwrite(STDERR, "ADMIN_EMAIL must be valid and ADMIN_PASSWORD at least 8 characters\n");
+        exit(1);
+    }
+    $st = $pdo->prepare('SELECT id FROM users WHERE email = ?');
+    $st->execute([$adminEmail]);
+    if ($st->fetch()) {
+        echo "admin already exists: {$adminEmail}\n";
+    } else {
+        $ins = $pdo->prepare(
+            'INSERT INTO users (name, email, password_hash, email_verified, plan_code, role, status)
+             VALUES (?,?,?,1,\'free\',\'admin\',\'active\')'
+        );
+        $ins->execute([
+            (string) (getenv('ADMIN_NAME') ?: 'Admin'),
+            $adminEmail,
+            password_hash($adminPass, PASSWORD_DEFAULT),
+        ]);
+        echo "admin created: {$adminEmail}\n";
+    }
+} else {
+    echo "admin skipped (set ADMIN_EMAIL + ADMIN_PASSWORD to create one)\n";
 }
-echo 'automations: ' . count($autos) . "\n";
-
-/* ---- daily stats (last 30 days) ---- */
-$pdo->exec('DELETE FROM daily_stats');
-$ins = $pdo->prepare('INSERT INTO daily_stats (user_id, stat_day, messages_sent, comments_handled) VALUES (?,?,?,?)');
-mt_srand(42);
-for ($i = 29; $i >= 0; $i--) {
-    $day = date('Y-m-d', time() - $i * 86400);
-    $msgs = mt_rand(10, 180);
-    $ins->execute([$uid, $day, $msgs, (int) ($msgs * 0.4)]);
-}
-echo "daily_stats: 30 days\n";
 
 /* ---- blog posts ---- */
 $pdo->exec('DELETE FROM blog_posts');

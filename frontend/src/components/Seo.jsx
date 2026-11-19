@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
 const DEFAULTS = {
-  title: "DM Panda | Certified Instagram DM Automation Tool",
+  title: "vone_dm | Certified Instagram DM Automation Tool",
   description:
-    "Automate Instagram DMs, comments, shares, and stories with DM Panda. Certified Meta Business Partner. Safe, simple, and affordable automation for creators.",
+    "Automate Instagram DMs, comments, shares, and stories with vone_dm. Certified Meta Business Partner. Safe, simple, and affordable automation for creators.",
   keywords: "instagram automation, instagram dm automation, comment auto reply, dm panda",
   canonical: typeof window !== "undefined" ? window.location.href : "",
 };
@@ -44,7 +44,7 @@ export default function Seo({
     setMeta("property", "og:description", ogDescription || d);
     setMeta("property", "og:type", ogType);
     setMeta("property", "og:url", canonical || DEFAULTS.canonical);
-    setMeta("property", "og:image", ogImage || "/images/logo.png");
+    setMeta("property", "og:image", ogImage || "/images/vone-logo.svg");
 
     setMeta("name", "twitter:card", "summary_large_image");
     setMeta("name", "twitter:title", ogTitle || t);

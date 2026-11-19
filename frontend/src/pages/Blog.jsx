@@ -59,7 +59,7 @@ export default function Blog() {
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950 text-gray-900 dark:text-gray-100">
       <Seo
-        title="DM Panda Automation Playbooks | Instagram Growth Blog"
+        title="vone_dm Automation Playbooks | Instagram Growth Blog"
         description="Field-tested strategies, rich DM templates, and compliance guides to automate your Instagram growth without spamming."
         keywords="instagram automation playbooks, instagram comment automation guide, dm automation tips, instagram marketing blog"
       />
@@ -69,7 +69,7 @@ export default function Blog() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-[#833AB4] dark:text-purple-300 text-[11px] font-bold uppercase tracking-wider mb-5">
-              <BookOpen className="w-3.5 h-3.5" /> DM Panda Knowledge Hub
+              <BookOpen className="w-3.5 h-3.5" /> vone_dm Knowledge Hub
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
               Playbooks That Drive <span className="bg-gradient-to-r from-[#405DE6] via-[#833AB4] to-[#FD1D1D] bg-clip-text text-transparent">Revenue.</span>

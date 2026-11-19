@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 $pdo = new PDO(
-    'mysql:host=127.0.0.1;port=3307;dbname=dmpanda;charset=utf8mb4',
+    'mysql:host=127.0.0.1;port=3306;dbname=dmpanda;charset=utf8mb4',
     'root', '',
     [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
 );

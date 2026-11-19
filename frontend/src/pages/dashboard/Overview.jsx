@@ -12,7 +12,7 @@ import {
   BarChart3,
 } from "lucide-react";
 import Seo from "../../components/Seo.jsx";
-import { get } from "../../lib/api.js";
+import { get, post } from "../../lib/api.js";
 import { useAuth } from "../../lib/AuthContext.jsx";
 
 const CARDS = [
@@ -80,6 +80,13 @@ export default function DashboardOverview() {
         if (alive) setRecent((Array.isArray(r) ? r : r.automations || []).slice(0, 5));
       } catch {
         if (alive) setRecent([]);
+      }
+      // Automatically run matching automations on recent comments each time
+      // the dashboard is opened (no cron required in local development).
+      try {
+        await post("/api/automations/poll", {});
+      } catch {
+        /* silently ignore — the manual button in Account Settings remains */
       } finally {
         if (alive) setLoading(false);
       }
@@ -93,7 +100,7 @@ export default function DashboardOverview() {
 
   return (
     <div className="space-y-6">
-      <Seo title="Dashboard | DM Panda" noIndex />
+      <Seo title="Dashboard | vone_dm" noIndex />
 
       {/* Welcome */}
       <div className="rounded-3xl overflow-hidden relative bg-gray-900 p-6 sm:p-8">

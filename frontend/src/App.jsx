@@ -1,11 +1,13 @@
 import { lazy, Suspense, useEffect } from "react";
-import { Route, Routes, useLocation, Navigate } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
 import Features from "./pages/Features.jsx";
 import Login from "./pages/Login.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
 import { Recovery, Verify, NotFound } from "./pages/Auth.jsx";
+import { GoogleCallback, InstagramCallback } from "./pages/AuthCallbacks.jsx";
 import DashboardLayout from "./pages/dashboard/DashboardLayout.jsx";
 import DashboardOverview from "./pages/dashboard/Overview.jsx";
 import AutomationView from "./pages/dashboard/AutomationView.jsx";
@@ -166,10 +168,11 @@ export default function App() {
           />
 
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/auth/recovery" element={<Recovery />} />
           <Route path="/auth/verify" element={<Verify />} />
-          <Route path="/auth/callback" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/auth/ig-callback" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/google-callback" element={<GoogleCallback />} />
+          <Route path="/instagram-callback" element={<InstagramCallback />} />
 
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminOverview />} />
@@ -195,7 +198,6 @@ export default function App() {
             <Route path="global-triggers" element={<AutomationView section="global-triggers" />} />
             <Route path="comment-moderation" element={<AutomationView section="comment-moderation" />} />
             <Route path="reply-templates" element={<AutomationView section="reply-templates" />} />
-            <Route path="reply-templates/create" element={<AutomationView section="reply-templates" />} />
             <Route path="inbox-menu" element={<AutomationView section="inbox-menu" />} />
             <Route path="convo-starter" element={<AutomationView section="convo-starter" />} />
             <Route path="suggest-more" element={<AutomationView section="suggest-more" />} />
@@ -206,6 +208,7 @@ export default function App() {
             <Route path="transactions" element={<Transactions />} />
             <Route path="account-settings" element={<AccountSettings />} />
             <Route path="support" element={<Support />} />
+          <Route path="contact" element={<Support />} />
           </Route>
 
           <Route

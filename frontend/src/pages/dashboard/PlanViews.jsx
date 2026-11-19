@@ -47,7 +47,7 @@ export function MyPlan() {
 
   return (
     <div className="space-y-6">
-      <Seo title="My Plan | DM Panda Dashboard" noIndex />
+      <Seo title="My Plan | vone_dm Dashboard" noIndex />
       <div>
         <h1 className="text-xl sm:text-2xl font-black">My Plan</h1>
         <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
@@ -237,7 +237,7 @@ export function Transactions() {
 
   return (
     <div className="space-y-5">
-      <Seo title="Transactions | DM Panda Dashboard" noIndex />
+      <Seo title="Transactions | vone_dm Dashboard" noIndex />
       <div>
         <h1 className="text-xl sm:text-2xl font-black">Transactions</h1>
         <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Payment history for your subscriptions.</p>

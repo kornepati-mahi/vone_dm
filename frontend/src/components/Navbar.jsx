@@ -89,17 +89,14 @@ export default function Navbar() {
           <div className="flex justify-between items-center h-16 sm:h-20">
             <Link to="/" className="flex items-center gap-2.5 group relative isolate p-1 -ml-1">
               <img
-                src="/images/logo-96.webp"
-                alt="DM Panda Logo"
+                src="/images/vone-logo.svg"
+                alt="vone_dm Logo"
                 width={40}
                 height={40}
                 className="h-9 sm:h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105 relative z-10 dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.75)]"
-                onError={(e) => {
-                  if (!e.target.src.endsWith("logo.png")) e.target.src = "/images/logo.png";
-                }}
               />
               <span className="text-xl font-bold tracking-tight text-neutral-900 dark:text-white hidden xs:inline-block">
-                DM Panda
+                vone_dm
               </span>
             </Link>
 
@@ -167,7 +164,7 @@ export default function Navbar() {
         onClick={() => setOpen(false)}
       />
       <div
-        className={`md:hidden fixed top-0 right-0 h-full w-[280px] max-w-[85vw] bg-white dark:bg-[#121214] border-l border-neutral-200/80 dark:border-white/10 shadow-2xl z-50 transition-transform duration-300 ease-out overflow-y-auto overscroll-contain ${
+        className={`md:hidden fixed top-0 right-0 h-full w-[280px] max-w-[85vw] bg-white dark:bg-[#121214] border-l border-neutral-200/80 dark:border-white/10 shadow-2xl z-50 transition-transform duration-300 ease-out overflow-y-auto overscroll-contain scrollbar-none ${
           open ? "translate-x-0" : "translate-x-full pointer-events-none"
         }`}
       >
@@ -203,15 +200,6 @@ export default function Navbar() {
                 >
                   Sign Up
                 </Link>
-                <button
-                  onClick={() => {
-                    navigate("/login");
-                    setOpen(false);
-                  }}
-                  className="text-xs text-gray-500 py-1"
-                >
-                  {isAuthenticated ? "Logout" : ""}
-                </button>
               </>
             )}
             {isAuthenticated && (

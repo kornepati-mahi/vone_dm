@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Plus, Pencil, Trash2, X, Power, Search, Loader2, Inbox, Lock, ArrowUpRight } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Power, Search, Loader2, Inbox, Lock, ArrowUpRight, Send } from "lucide-react";
 import Seo from "../../components/Seo.jsx";
 import { get, post, put, del } from "../../lib/api.js";
 import { uploadFile } from "../../lib/api.js";
@@ -54,7 +54,7 @@ const FIELD_PRESETS = {
       { name: "reply_text", label: "Reply Message", type: "textarea", placeholder: "Thanks for the shoutout!" },
       { name: "media_url", label: "Media URL (optional)", placeholder: "https://..." },
     ],
-    options: [{ name: "no_watermark", label: "No DM Panda watermark", feature: "no_watermark" }],
+    options: [{ name: "no_watermark", label: "No vone_dm watermark", feature: "no_watermark" }],
   },
   "live-automation": {
     title: "Instagram Live Automation",
@@ -99,7 +99,7 @@ const FIELD_PRESETS = {
       { name: "name", label: "Template Name", placeholder: "Pricing Card" },
       { name: "template_type", label: "Template Type", type: "select", options: ["text", "button", "quick_replies", "carousel", "media", "share"] },
       { name: "reply_text", label: "Message Body", type: "textarea", placeholder: "Hi! Here's what you asked for..." },
-      { name: "buttons", label: 'Buttons JSON (optional, e.g. [{"title":"View","url":"https://..."}])', type: "textarea" },
+      { name: "buttons", label: "Buttons (optional)", type: "buttons" },
     ],
   },
   "inbox-menu": {
@@ -152,8 +152,16 @@ export default function AutomationView({ section }) {
   const [query, setQuery] = useState("");
   const [modal, setModal] = useState(null); // null | {} | item
   const [form, setForm] = useState({});
+  const [errors, setErrors] = useState({});
   const [uploadingField, setUploadingField] = useState(null);
   const [deleting, setDeleting] = useState(null);
+  const [testItem, setTestItem] = useState(null);
+  const [testRecipient, setTestRecipient] = useState("");
+  const [testBusy, setTestBusy] = useState(false);
+  const [contacts, setContacts] = useState([]);
+  const [contactErrors, setContactErrors] = useState([]);
+  const [contactsLoaded, setContactsLoaded] = useState(false);
+  const [loadingContacts, setLoadingContacts] = useState(false);
 
   const load = useCallback(async () => {
     if (locked) {
@@ -273,10 +281,43 @@ export default function AutomationView({ section }) {
     }
   };
 
+  const loadContacts = async () => {
+    setLoadingContacts(true);
+    try {
+      const d = await get("/api/instagram/contacts");
+      setContacts(Array.isArray(d?.contacts) ? d.contacts : []);
+      setContactErrors(Array.isArray(d?.errors) ? d.errors : []);
+      setContactsLoaded(true);
+    } catch (err) {
+      showError(err.message || "Could not load commenters.");
+    } finally {
+      setLoadingContacts(false);
+    }
+  };
+
+  const sendTest = async (e) => {
+    e.preventDefault();
+    if (!testRecipient.trim()) return showError("Enter the recipient Instagram user ID.");
+    setTestBusy(true);
+    try {
+      const res = await post("/api/automations/test-send", {
+        id: testItem.id,
+        recipient_id: testRecipient.trim(),
+      });
+      showSuccess(res.message || "Test message sent.");
+      setTestItem(null);
+      setTestRecipient("");
+    } catch (err) {
+      showError(err.message || "Test send failed.");
+    } finally {
+      setTestBusy(false);
+    }
+  };
+
   if (locked && !planLoading) {
     return (
       <div className="space-y-5">
-        <Seo title={`${preset.title} | DM Panda Dashboard`} noIndex />
+        <Seo title={`${preset.title} | vone_dm Dashboard`} noIndex />
         <div>
           <h1 className="text-xl sm:text-2xl font-black">{preset.title}</h1>
           <p className="text-sm text-gray-600 dark:text-gray-400 max-w-2xl mt-1">{preset.subtitle}</p>
@@ -311,7 +352,7 @@ export default function AutomationView({ section }) {
 
   return (
     <div className="space-y-5">
-      <Seo title={`${preset.title} | DM Panda Dashboard`} noIndex />
+      <Seo title={`${preset.title} | vone_dm Dashboard`} noIndex />
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -391,6 +432,13 @@ export default function AutomationView({ section }) {
                     <Power className="w-4 h-4" />
                   </button>
                   <button
+                    onClick={() => { setTestItem(item); setTestRecipient(""); }}
+                    title="Send a real test DM"
+                    className="p-2 rounded-lg text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-colors"
+                  >
+                    <Send className="w-4 h-4" />
+                  </button>
+                  <button
                     onClick={() => openEdit(item)}
                     title="Edit"
                     className="p-2 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-colors"
@@ -426,7 +474,65 @@ export default function AutomationView({ section }) {
               {preset.fields.map((f) => (
                 <div key={f.name}>
                   <label className="block text-sm font-semibold mb-1.5">{f.label}</label>
-                  {f.type === "textarea" ? (
+                  {f.type === "buttons" ? (
+                    <div className="space-y-2">
+                      {(() => {
+                        let list = [];
+                        try {
+                          const raw = form.buttons;
+                          const parsed = typeof raw === "string" ? JSON.parse(raw || "[]") : raw;
+                          if (Array.isArray(parsed)) list = parsed;
+                        } catch { /* ignore malformed legacy value */ }
+                        const setList = (next) => setForm((v) => ({ ...v, buttons: JSON.stringify(next) }));
+                        return (
+                          <>
+                            {list.map((b, i) => (
+                              <div key={i} className="grid grid-cols-2 gap-2">
+                                <input
+                                  value={b.title || ""}
+                                  onChange={(e) => {
+                                    const next = [...list];
+                                    next[i] = { ...next[i], title: e.target.value };
+                                    setList(next);
+                                  }}
+                                  placeholder="Button title"
+                                  className="text-sm rounded-xl border border-gray-300 dark:border-neutral-700 px-3.5 py-3 bg-white dark:bg-neutral-950 focus:outline-none focus:border-ig-purple"
+                                />
+                                <div className="flex gap-1.5">
+                                  <input
+                                    value={b.url || ""}
+                                    onChange={(e) => {
+                                      const next = [...list];
+                                      next[i] = { ...next[i], url: e.target.value };
+                                      setList(next);
+                                    }}
+                                    placeholder="https://example.com"
+                                    className="flex-1 min-w-0 text-sm rounded-xl border border-gray-300 dark:border-neutral-700 px-3.5 py-3 bg-white dark:bg-neutral-950 focus:outline-none focus:border-ig-purple"
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={() => setList(list.filter((_, j) => j !== i))}
+                                    className="shrink-0 px-3 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30"
+                                    aria-label="Remove button"
+                                  >
+                                    <Trash2 className="w-4 h-4" />
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                            <button
+                              type="button"
+                              onClick={() => setList([...list, { title: "", url: "" }])}
+                              className="inline-flex items-center gap-1.5 text-xs font-bold text-ig-purple hover:underline"
+                            >
+                              <Plus className="w-3.5 h-3.5" /> Add button
+                            </button>
+                          </>
+                        );
+                      })()}
+                      <p className="text-[11px] text-gray-400">Add as many buttons as you need — no JSON required.</p>
+                    </div>
+                  ) : f.type === "textarea" ? (
                     <textarea
                       value={form[f.name] || ""}
                       onChange={(e) => setForm((v) => ({ ...v, [f.name]: e.target.value }))}
@@ -553,6 +659,89 @@ export default function AutomationView({ section }) {
               </div>
             </form>
           </div>
+        </div>
+      )}
+
+      {/* Real test-send modal */}
+      {testItem && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <form onSubmit={sendTest} className="w-full max-w-md rounded-3xl bg-white dark:bg-[#141416] border border-gray-200 dark:border-white/10 p-6 space-y-5">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 shrink-0 rounded-xl bg-gradient-to-br from-[#405DE6] via-[#833AB4] to-[#FD1D1D] text-white flex items-center justify-center">
+                <Send className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-black text-lg leading-tight">Send test DM</h3>
+                <p className="text-[11px] text-gray-500">Using "{testItem.name}"</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-gray-100 dark:border-white/[0.06] bg-gray-50 dark:bg-white/[0.03] p-4 space-y-3">
+              <div className="flex items-center justify-between gap-2">
+                <label className="text-sm font-bold">Choose a person</label>
+                <button
+                  type="button"
+                  onClick={loadContacts}
+                  disabled={loadingContacts}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-ig-purple hover:underline disabled:opacity-60"
+                >
+                  {loadingContacts ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Search className="w-3.5 h-3.5" />}
+                  Refresh list
+                </button>
+              </div>
+              <select
+                value={contacts.some((c) => c.id === testRecipient) ? testRecipient : ""}
+                onChange={(e) => setTestRecipient(e.target.value)}
+                className="w-full text-sm rounded-xl border border-gray-300 dark:border-neutral-700 px-3.5 py-3 bg-white dark:bg-neutral-950 focus:outline-none focus:border-ig-purple"
+              >
+                <option value="">— Select a person —</option>
+                {contacts.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    @{c.username || "instagram"} · ID {c.id}
+                  </option>
+                ))}
+              </select>
+              {contactsLoaded && contacts.length === 0 && (
+                <p className="text-[11px] text-gray-400">
+                  Nobody found yet — ask someone to comment on your post or DM your account, then click Refresh list.
+                </p>
+              )}
+              {contactErrors.map((err, i) => (
+                <p key={i} className="text-[11px] text-red-500 break-all">{err}</p>
+              ))}
+              <div>
+                <label className="block text-xs font-semibold mb-1.5 text-gray-500">Or enter Instagram user ID manually</label>
+                <input
+                  value={testRecipient}
+                  onChange={(e) => setTestRecipient(e.target.value)}
+                  placeholder="17841400000000000"
+                  inputMode="numeric"
+                  className="w-full text-sm font-mono rounded-xl border border-gray-300 dark:border-neutral-700 px-3.5 py-3 bg-white dark:bg-neutral-950 focus:outline-none focus:border-ig-purple"
+                />
+              </div>
+              {testRecipient && (
+                <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold break-all">
+                  Selected recipient ID: {testRecipient}
+                </p>
+              )}
+            </div>
+
+            <div className="rounded-2xl border border-gray-100 dark:border-white/[0.06] p-4">
+              <p className="text-[10px] font-black uppercase tracking-wider text-gray-400 mb-1.5">Message to send</p>
+              <p className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap break-words">
+                {String(testItem.reply_text || "").slice(0, 200) || "(no reply text)"}
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button type="button" onClick={() => setTestItem(null)} className="flex-1 py-3 rounded-xl border border-gray-300 dark:border-white/15 font-bold text-sm">
+                Cancel
+              </button>
+              <button type="submit" disabled={testBusy || !testRecipient} className="flex-1 py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-50">
+                {testBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />} Send
+              </button>
+            </div>
+          </form>
         </div>
       )}
     </div>

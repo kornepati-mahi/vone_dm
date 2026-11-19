@@ -33,13 +33,33 @@ function Faq({ q, a }) {
   );
 }
 
+// Curated highlights so each plan card reads differently at a glance.
+const HIGHLIGHTS = {
+  free: [
+    "unlimited_contacts", "post_comment_dm_reply", "post_comment_reply_automation",
+    "reel_comment_dm_reply", "reel_comment_reply_automation",
+  ],
+  basic: [
+    "followers_only", "once_per_user_24h", "comment_moderation",
+    "seen_typing", "welcome_message", "super_profile",
+  ],
+  pro: [
+    "dm_automation", "story_automation", "global_trigger", "mentions",
+    "instagram_live_automation", "priority_support", "no_watermark",
+  ],
+};
+
 function PlanCard({ plan, yearly, onChoose }) {
   const { isAuthenticated } = useAuth();
   const price = yearly ? plan.price_yearly_monthly_inr : plan.price_monthly_inr;
   const yearlyTotal = plan.price_yearly_inr;
-  const features = (plan.feature_items || []).filter((f) => f.enabled);
-  const preview = features.slice(0, 7);
-  const extra = features.length - preview.length;
+  const allItems = plan.feature_items || [];
+  const enabled = allItems.filter((f) => f.enabled);
+  const keys = HIGHLIGHTS[plan.plan_code];
+  const preview = keys
+    ? keys.map((k) => allItems.find((f) => f.key === k)).filter(Boolean)
+    : enabled.slice(0, 7);
+  const extra = Math.max(0, enabled.length - preview.length);
   const [showAll, setShowAll] = useState(false);
   const isFree = plan.plan_code === "free";
   const isPro = plan.plan_code === "pro";
@@ -91,10 +111,16 @@ function PlanCard({ plan, yearly, onChoose }) {
         </div>
 
         <div className="space-y-2.5 mb-6">
-          {(showAll ? features : preview).map((f) => (
+          {(showAll ? allItems : preview).map((f) => (
             <div key={f.key || f.label} className="flex items-start gap-2.5 text-sm">
-              <Check className="w-4 h-4 mt-0.5 shrink-0 text-emerald-500" />
-              <span className="text-gray-700 dark:text-gray-300 whitespace-pre-line">{f.label}</span>
+              {f.enabled ? (
+                <Check className="w-4 h-4 mt-0.5 shrink-0 text-emerald-500" />
+              ) : (
+                <X className="w-4 h-4 mt-0.5 shrink-0 text-gray-300 dark:text-gray-600" />
+              )}
+              <span className={`whitespace-pre-line ${f.enabled ? "text-gray-700 dark:text-gray-300" : "text-gray-400 dark:text-gray-500 line-through"}`}>
+                {f.label}
+              </span>
             </div>
           ))}
           {!showAll && extra > 0 && (
@@ -198,11 +224,11 @@ export default function Pricing() {
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950 text-gray-900 dark:text-gray-100">
       <Seo
-        title="Pricing Plans | DM Panda - Flexible Instagram Automation"
+        title="Pricing Plans | vone_dm - Flexible Instagram Automation"
         description="Find the best pricing plan for automating your Instagram DMs. Start free, upgrade as you grow. Safe, certified, and compliant pricing."
         keywords="dm panda pricing, instagram dm bot pricing, cheap instagram dm automations, instagram auto reply cost"
         schema={[
-          { "@context": "https://schema.org", "@type": "WebPage", name: "Pricing Plans | DM Panda", url: "https://dmpanda.com/pricing" },
+          { "@context": "https://schema.org", "@type": "WebPage", name: "Pricing Plans | vone_dm", url: "https://dmpanda.com/pricing" },
         ]}
       />
 
@@ -341,7 +367,7 @@ export default function Pricing() {
           </div>
           <h2 className="text-2xl sm:text-3xl font-black mb-3">100% Free Partner Perks</h2>
           <p className="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto text-sm sm:text-base leading-relaxed">
-            Upgrade to DM Panda Pro and receive complimentary bonus subscriptions to industry-leading AI, video
+            Upgrade to vone_dm Pro and receive complimentary bonus subscriptions to industry-leading AI, video
             editing, 4K streaming, and music tools, fulfilled officially by VV Deals. Sony LIV, ZEE5, Adobe Express,
             OpenArt, Prime, Spotify, YouTube, CapCut &amp; Netflix.
           </p>
@@ -386,7 +412,7 @@ export default function Pricing() {
               </div>
               <h2 className="text-2xl sm:text-3xl font-black mb-3">Got Questions? We've Got Answers</h2>
               <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
-                Everything you need to know about DM Panda pricing, plan limits, Meta compliance, and billing.
+                Everything you need to know about vone_dm pricing, plan limits, Meta compliance, and billing.
               </p>
             </div>
           </RevealSection>
@@ -423,7 +449,6 @@ export default function Pricing() {
         plan={checkout?.plan}
         cycle={checkout?.cycle}
         onClose={() => setCheckout(null)}
-        onSuccess={() => {}}
       />
     </div>
   );

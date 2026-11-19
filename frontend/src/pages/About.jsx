@@ -20,11 +20,11 @@ export default function About() {
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950 text-gray-900 dark:text-gray-100">
       <Seo
-        title="About Us | DM Panda - Our Story & Mission"
-        description="Learn how DM Panda helps creators, brands, and businesses scale their Instagram engagement with secure, compliant direct message automation."
+        title="About Us | vone_dm - Our Story & Mission"
+        description="Learn how vone_dm helps creators, brands, and businesses scale their Instagram engagement with secure, compliant direct message automation."
         keywords="about dm panda, instagram automation company, instagram marketing tool team"
         schema={[
-          { "@context": "https://schema.org", "@type": "AboutPage", name: "About Us | DM Panda", url: "https://dmpanda.com/about" },
+          { "@context": "https://schema.org", "@type": "AboutPage", name: "About Us | vone_dm", url: "https://dmpanda.com/about" },
         ]}
       />
 
@@ -34,13 +34,13 @@ export default function About() {
         <RevealSection>
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 text-xs font-bold uppercase tracking-wider mb-4 border border-purple-500/20">
-              About DM Panda
+              About vone_dm
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
               Your partner in automating Instagram direct messages efficiently, reliably, and safely.
             </h1>
             <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Learn how DM Panda helps creators, brands, and businesses scale their Instagram engagement with secure,
+              Learn how vone_dm helps creators, brands, and businesses scale their Instagram engagement with secure,
               compliant direct message automation.
             </p>
           </div>
@@ -67,7 +67,7 @@ export default function About() {
                 <Rocket className="w-4 h-4" /> Our Story
               </div>
               <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-                DM Panda was founded by a team of social media enthusiasts and software engineers who saw the need for
+                vone_dm was founded by a team of social media enthusiasts and software engineers who saw the need for
                 a smarter, more intuitive way to manage Instagram DMs at scale. Frustrated by the limitations of
                 existing tools, we set out to build a platform that is certified, fast, and remarkably easy to use.
               </p>
@@ -94,7 +94,7 @@ export default function About() {
             </div>
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
               From auto-replying to comments and story mentions to follow-gated resources and rich DM templates,
-              DMPanda provides a complete toolkit to put your Instagram engagement on autopilot.
+              vone_dm provides a complete toolkit to put your Instagram engagement on autopilot.
             </p>
             <div className="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
               <Link
@@ -121,7 +121,7 @@ export default function About() {
 
         <RevealSection>
           <div className="mt-14 text-center rounded-3xl bg-gray-900 dark:bg-white/[0.04] p-8 sm:p-10">
-            <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">Ready to scale with DM Panda?</h2>
+            <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">Ready to scale with vone_dm?</h2>
             <p className="text-gray-300 dark:text-gray-400 mb-6 max-w-xl mx-auto text-sm sm:text-base">
               Connect your Instagram account in 60 seconds. Start completely free and turn your comments and mentions
               into direct sales.

@@ -602,6 +602,26 @@ export default function ContentView() {
                 </p>
               </div>
               <div className="flex items-center gap-2">
+                <div className="flex rounded-xl border border-gray-200 dark:border-white/10 p-0.5">
+                  <button
+                    type="button"
+                    onClick={() => setMode("visual")}
+                    className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-colors ${
+                      mode === "visual" ? "bg-gray-900 text-white dark:bg-white dark:text-gray-900" : "text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                    }`}
+                  >
+                    <Layout className="w-3.5 h-3.5" /> Visual
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMode("json")}
+                    className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-colors ${
+                      mode === "json" ? "bg-gray-900 text-white dark:bg-white dark:text-gray-900" : "text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                    }`}
+                  >
+                    <Code2 className="w-3.5 h-3.5" /> JSON
+                  </button>
+                </div>
                 <button
                   onClick={save}
                   disabled={busy || !active}
@@ -612,7 +632,22 @@ export default function ContentView() {
               </div>
             </div>
 
-            {renderVisual()}
+            {mode === "json" ? (
+              <div>
+                <textarea
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  rows={20}
+                  spellCheck={false}
+                  className={`w-full text-xs font-mono rounded-xl border px-3.5 py-3 bg-white dark:bg-neutral-950 focus:outline-none focus:border-ig-purple ${
+                    valid ? "border-gray-300 dark:border-neutral-700" : "border-red-500"
+                  }`}
+                />
+                {!valid && <p className="mt-2 text-xs text-red-500">Invalid JSON — fix the syntax before saving.</p>}
+              </div>
+            ) : (
+              renderVisual()
+            )}
           </div>
         </div>
       )}

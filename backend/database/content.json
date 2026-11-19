@@ -151,7 +151,7 @@
       {
         "icon": "Link2",
         "title": "Connect Account",
-        "description": "Securely link your Instagram account to DM Panda."
+        "description": "Securely link your Instagram account to vone_dm."
       },
       {
         "icon": "Settings",
@@ -316,7 +316,7 @@
         "badge": "High Conversion",
         "stat": "14k Clicks/Month Average",
         "featured": true,
-        "description": "Build a blazing-fast, mobile-optimized link-in-bio page directly inside DM Panda with built-in analytics.",
+        "description": "Build a blazing-fast, mobile-optimized link-in-bio page directly inside vone_dm with built-in analytics.",
         "benefit": "Replaces generic link-in-bio tools with a branded, trackable conversion engine for all Instagram traffic.",
         "image": "/images/super_profile.png"
       },
@@ -431,7 +431,7 @@
       },
       {
         "q": "Will automating my Instagram account risk shadowbans or suspensions?",
-        "a": "No. DM Panda operates exclusively through Meta's official Graph API and Messenger API for Instagram with verified webhooks and OAuth permissions. We never ask for your Instagram password, and our queuing engine strictly respects Meta's official rate limits to ensure your profile remains 100% safe."
+        "a": "No. vone_dm operates exclusively through Meta's official Graph API and Messenger API for Instagram with verified webhooks and OAuth permissions. We never ask for your Instagram password, and our queuing engine strictly respects Meta's official rate limits to ensure your profile remains 100% safe."
       },
       {
         "q": "What are Meta Rate Limits and how do they protect my account?",
@@ -439,7 +439,7 @@
       },
       {
         "q": "Do limits on one Instagram account affect my other connected accounts?",
-        "a": "No. Meta rate limits and DM Panda quotas are strictly isolated per Instagram account. A viral reel or massive surge in comments on Account A will never exhaust the quota or slow down automation delivery on Account B."
+        "a": "No. Meta rate limits and vone_dm quotas are strictly isolated per Instagram account. A viral reel or massive surge in comments on Account A will never exhaust the quota or slow down automation delivery on Account B."
       },
       {
         "q": "What is the difference between monthly and annual billing?",
@@ -550,7 +550,7 @@
         "pro": true
       },
       {
-        "feature": "No DM Panda branding watermark",
+        "feature": "No vone_dm branding watermark",
         "free": false,
         "basic": false,
         "pro": true
@@ -614,7 +614,7 @@
   },
   "contact": {
     "includes": [
-      "Your DM Panda login email and the Instagram username or linked account.",
+      "Your vone_dm login email and the Instagram username or linked account.",
       "The dashboard section you used, such as Account Settings, My Plan, Transactions, or a specific automation editor.",
       "Your payment ID and selected plan if the problem is billing-related.",
       "The exact issue, expected result, and any error text you saw."

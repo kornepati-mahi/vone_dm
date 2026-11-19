@@ -25,16 +25,13 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="inline-flex items-center gap-2.5 mb-4 group">
               <img
-                src="/images/logo-96.webp"
-                alt="DM Panda Logo"
+                src="/images/vone-logo.svg"
+                alt="vone_dm Logo"
                 width={36}
                 height={36}
                 className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105 dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]"
-                onError={(e) => {
-                  if (!e.target.src.endsWith("logo.png")) e.target.src = "/images/logo.png";
-                }}
               />
-              <span className="text-2xl font-black tracking-tight text-gray-900 dark:text-white">DM Panda</span>
+              <span className="text-2xl font-black tracking-tight text-gray-900 dark:text-white">vone_dm</span>
             </Link>
             <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm leading-relaxed max-w-sm">
               Certified Meta Partner direct message and comment automation suite designed for creators, brands, and
@@ -107,7 +104,7 @@ export default function Footer() {
       <div className="bg-gray-50 dark:bg-black/30 py-5 border-t border-gray-100 dark:border-white/[0.06]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
-            © {new Date().getFullYear()} DM Panda. All rights reserved.
+            © {new Date().getFullYear()} vone_dm. All rights reserved.
           </p>
           <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
             <Link to="/privacy" className="hover:text-gray-900 dark:hover:text-white transition-colors">

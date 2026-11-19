@@ -46,11 +46,11 @@ export default function Features() {
   return (
     <div className="min-h-screen bg-white dark:bg-[#09090b] text-gray-900 dark:text-gray-100 transition-colors duration-300">
       <Seo
-        title="Features | DM Panda - Smart Instagram Automation Suite"
+        title="Features | vone_dm - Smart Instagram Automation Suite"
         description="Explore all 23 powerful features: automated comment DMs, viral Reel auto-replies, interactive carousels, follow gates, and AI spam protection."
         keywords="instagram automation features, comment reply bot, story mention auto reply, follow gate instagram dms, link in bio creator, carousel templates"
         schema={[
-          { "@context": "https://schema.org", "@type": "WebPage", name: "Instagram Automation Features | DM Panda", description: "Explore DM Panda's full suite of 23 Instagram automation features.", url: "https://dmpanda.com/features" },
+          { "@context": "https://schema.org", "@type": "WebPage", name: "Instagram Automation Features | vone_dm", description: "Explore vone_dm's full suite of 23 Instagram automation features.", url: "https://dmpanda.com/features" },
         ]}
       />
 

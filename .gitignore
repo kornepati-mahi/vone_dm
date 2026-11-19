@@ -9,6 +9,7 @@ frontend/dist/
 backend/public/uploads/
 
 # Env / secrets
+backend/config.php
 .env
 .env.local
 *.env

@@ -10,7 +10,7 @@ import { useToast } from "../lib/ToastContext.jsx";
 import { useContent } from "../lib/content.jsx";
 
 const FALLBACK_INCLUDES = [
-  "Your DM Panda login email and the Instagram username or linked account.",
+  "Your vone_dm login email and the Instagram username or linked account.",
   "The dashboard section you used, such as Account Settings, My Plan, Transactions, or a specific automation editor.",
   "Your payment ID and selected plan if the problem is billing-related.",
   "The exact issue, expected result, and any error text you saw.",
@@ -58,13 +58,13 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950 text-gray-900 dark:text-gray-100 flex flex-col justify-between">
       <Seo
-        title="Contact Support | DM Panda"
-        description="Get in touch with the DM Panda support team. Contact us for account configuration, billing queries, Instagram connection troubleshooting, or developer assistance."
+        title="Contact Support | vone_dm"
+        description="Get in touch with the vone_dm support team. Contact us for account configuration, billing queries, Instagram connection troubleshooting, or developer assistance."
         keywords="contact dm panda, support dm panda, instagram automation help, contact email dm panda"
         schema={{
           "@context": "https://schema.org",
           "@type": "ContactPage",
-          name: "Contact Support | DM Panda",
+          name: "Contact Support | vone_dm",
           mainEntity: { "@type": "ContactPoint", email: "support@dmpanda.com", contactType: "customer support" },
         }}
       />
@@ -79,7 +79,7 @@ export default function Contact() {
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3">Get in Touch</h1>
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-            Get in touch with the DM Panda support team. Contact us for account configuration, billing queries,
+            Get in touch with the vone_dm support team. Contact us for account configuration, billing queries,
             Instagram connection troubleshooting, or developer assistance.
           </p>
         </div>
@@ -92,7 +92,7 @@ export default function Contact() {
               </div>
               <h3 className="mt-5 text-2xl font-bold">support@dmpanda.com</h3>
               <p className="mt-4 text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
-                Email the support team with your DM Panda login email, the Instagram account involved, and a short
+                Email the support team with your vone_dm login email, the Instagram account involved, and a short
                 description of what you expected versus what happened.
               </p>
               <a
@@ -157,7 +157,7 @@ export default function Contact() {
 
         <RevealSection>
           <div className="text-center rounded-3xl bg-gray-50 dark:bg-white/[0.03] border border-gray-100 dark:border-white/[0.06] p-7">
-            <h3 className="font-bold text-lg mb-2">Explore More of DM Panda</h3>
+            <h3 className="font-bold text-lg mb-2">Explore More of vone_dm</h3>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-5">
               While you await our response, discover features, check subscription pricing, or read step-by-step
               guides.

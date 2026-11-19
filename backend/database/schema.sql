@@ -1,4 +1,4 @@
--- DM Panda clone — MySQL / MariaDB schema (XAMPP port 3307)
+-- DM Panda clone — MySQL / MariaDB schema (XAMPP port 3306)
 CREATE DATABASE IF NOT EXISTS dmpanda CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE dmpanda;
 
@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS users (
   plan_expires_at DATETIME NULL,
   role ENUM('user','admin') NOT NULL DEFAULT 'user',
   status ENUM('active','blocked','deleted') NOT NULL DEFAULT 'active',
+  avatar_url VARCHAR(500) NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY uniq_users_email (email)
@@ -179,6 +180,22 @@ CREATE TABLE IF NOT EXISTS daily_stats (
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------------
+-- Automation delivery log
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS automation_events (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  automation_id INT UNSIGNED NULL,
+  event_type VARCHAR(40) NOT NULL DEFAULT '',
+  recipient_id VARCHAR(64) NOT NULL DEFAULT '',
+  status ENUM('sent','failed') NOT NULL DEFAULT 'sent',
+  detail TEXT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY idx_ae_user (user_id),
+  CONSTRAINT fk_ae_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------------
 -- Editable site content (home/features/pricing/about/contact copy)
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS site_content (
@@ -198,5 +215,5 @@ CREATE TABLE IF NOT EXISTS settings (
 INSERT IGNORE INTO settings (setting_key, setting_value) VALUES
   ('payment_key_id', 'rzp_test_REPLACE_ME'),
   ('payment_key_secret', ''),
-  ('payment_mode', 'demo'),
+  ('payment_mode', 'live'),
   ('currency', 'INR');

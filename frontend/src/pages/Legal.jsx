@@ -4,8 +4,8 @@ import LegalLayout from "../components/LegalLayout.jsx";
 export function Privacy() {
   return (
     <LegalLayout
-      title="Privacy Policy | DM Panda"
-      description="Privacy Policy of DM Panda regarding data privacy and Meta Platform compliance."
+      title="Privacy Policy | vone_dm"
+      description="Privacy Policy of vone_dm regarding data privacy and Meta Platform compliance."
       keywords="privacy policy dm panda, instagram data privacy, meta platform compliance, data deletion policy"
       updated="September 30, 2026"
     >
@@ -61,7 +61,7 @@ export function Privacy() {
         <li>Read comments on your posts/reels to trigger instant automated DM replies or automated public comment responses.</li>
         <li>Receive incoming direct message webhooks and send automated responses requested by the account owner.</li>
         <li>Publish or schedule media, reels, and stories on your connected Instagram account as requested by you.</li>
-        <li>Read post, reel, and account analytics to display performance insights and reports in your DM Panda dashboard.</li>
+        <li>Read post, reel, and account analytics to display performance insights and reports in your vone_dm dashboard.</li>
         <li>Execute Comment Auto-Responses &amp; Moderation and Story Mention Workflows configured by you.</li>
       </ul>
 
@@ -72,7 +72,7 @@ export function Privacy() {
 
       <h2>4. Meta Graph API Permissions Requested</h2>
       <p>
-        DM Panda requests only the specific, granular permissions necessary to fulfill your automation settings. In
+        vone_dm requests only the specific, granular permissions necessary to fulfill your automation settings. In
         strict compliance with Section 3.a of Meta's Platform Terms and Meta's Developer Data Use Policy, each
         permission maps to a documented Why It Is Needed explanation inside your dashboard's Connected Accounts
         screen.
@@ -95,7 +95,7 @@ export function Privacy() {
           deletion or token revocation.
         </li>
         <li>
-          <strong>NO Permanent Message Archiving:</strong> message bodies are not permanently archived by DM Panda.
+          <strong>NO Permanent Message Archiving:</strong> message bodies are not permanently archived by vone_dm.
         </li>
       </ul>
 
@@ -112,12 +112,12 @@ export function Privacy() {
       </p>
       <ol>
         <li>
-          <strong>Option A: Self-Service Deletion via DM Panda Dashboard</strong> — Log in to your dashboard, open
+          <strong>Option A: Self-Service Deletion via vone_dm Dashboard</strong> — Log in to your dashboard, open
           Account Settings, scroll to the bottom of the page, and click Delete Account. Enter your password to confirm.
         </li>
         <li>
           <strong>Option B: Automatic Meta Deauthorization &amp; Data Deletion Request</strong> — Navigate to your
-          Instagram or Facebook profile → Apps and Websites → remove DM Panda. Meta will immediately send an automated
+          Instagram or Facebook profile → Apps and Websites → remove vone_dm. Meta will immediately send an automated
           Data Deletion Request Callback to our servers.
         </li>
         <li>
@@ -126,7 +126,7 @@ export function Privacy() {
         </li>
       </ol>
       <p>
-        If you remove the DM Panda application from your Facebook or Instagram account settings, our server
+        If you remove the vone_dm application from your Facebook or Instagram account settings, our server
         automatically purges your stored Instagram tokens, active automations, and associated records.
       </p>
 
@@ -152,17 +152,17 @@ export function Privacy() {
 export function Terms() {
   return (
     <LegalLayout
-      title="Terms & Conditions | DM Panda"
-      description="Terms and Conditions outlining rules and regulations for using DM Panda."
+      title="Terms & Conditions | vone_dm"
+      description="Terms and Conditions outlining rules and regulations for using vone_dm."
       keywords="terms and conditions dm panda, user terms dm panda, instagram automation legal terms"
       updated="November 06, 2025"
     >
       <p>
-        Welcome to DM Panda! These terms and conditions outline the rules and regulations for the use of DM Panda's
+        Welcome to vone_dm! These terms and conditions outline the rules and regulations for the use of vone_dm's
         Website, located at https://dmpanda.com.
       </p>
       <p>
-        By accessing this website we assume you accept these terms and conditions. Do not continue to use DM Panda if
+        By accessing this website we assume you accept these terms and conditions. Do not continue to use vone_dm if
         you do not agree to take all of the terms and conditions stated on this page.
       </p>
 
@@ -176,16 +176,16 @@ export function Terms() {
       <h2>Service Usage</h2>
       <p>You must not:</p>
       <ul>
-        <li>Republish material from DM Panda</li>
-        <li>Sell, rent or sub-license material from DM Panda</li>
-        <li>Reproduce, duplicate or copy material from DM Panda</li>
-        <li>Redistribute content from DM Panda</li>
+        <li>Republish material from vone_dm</li>
+        <li>Sell, rent or sub-license material from vone_dm</li>
+        <li>Reproduce, duplicate or copy material from vone_dm</li>
+        <li>Redistribute content from vone_dm</li>
         <li>Violate Instagram's Terms of Service or Community Guidelines</li>
         <li>
           Attempt, in any manner, to obtain the password, account, or other security information from any other user
         </li>
         <li>Interfere with or disrupt the integrity or performance of the Service</li>
-        <li>Jeopardizes the security of your DM Panda account or anyone else's</li>
+        <li>Jeopardizes the security of your vone_dm account or anyone else's</li>
         <li>Violate any applicable national or international law or regulation</li>
         <li>Is harmful, fraudulent, deceptive, threatening, harassing, defamatory, obscene, or otherwise objectionable</li>
         <li>Infringes upon or violates our intellectual property rights or the intellectual property rights of others</li>
@@ -194,13 +194,13 @@ export function Terms() {
 
       <h2>Subscriptions, Duration, and Expiry</h2>
       <p>
-        Paid DM Panda plans are sold on fixed validity windows. Monthly plans run for 30 days and yearly plans run for
+        Paid vone_dm plans are sold on fixed validity windows. Monthly plans run for 30 days and yearly plans run for
         364 days from the verified payment time. Plan expiry, downgrade behavior, feature availability, and
         account-access enforcement follow the effective runtime plan applied to your account.
       </p>
       <p>
         If your plan no longer supports all previously linked Instagram accounts, those extra accounts may remain
-        linked for management purposes, but DM Panda can block dashboard access and automation processing for them
+        linked for management purposes, but vone_dm can block dashboard access and automation processing for them
         until your effective plan allows them again or they are manually removed.
       </p>
 
@@ -224,7 +224,7 @@ export function Terms() {
 
       <h2>Limitation of Liability</h2>
       <p>
-        In no event shall DM Panda, nor its directors, employees, partners, agents, suppliers, or affiliates, be
+        In no event shall vone_dm, nor its directors, employees, partners, agents, suppliers, or affiliates, be
         liable for any indirect, incidental, special, consequential, or punitive damages resulting from your access to
         or use of, or inability to access or use, the Service.
       </p>
@@ -246,14 +246,14 @@ export function Terms() {
 export function Disclaimer() {
   return (
     <LegalLayout
-      title="Disclaimer | DM Panda"
-      description="Legal disclaimer regarding using DM Panda and third-party platform integrations."
+      title="Disclaimer | vone_dm"
+      description="Legal disclaimer regarding using vone_dm and third-party platform integrations."
       keywords="disclaimer dm panda, legal disclaimer dm panda, instagram automation liability"
       updated="November 06, 2025"
     >
       <p>
-        The information on DM Panda's website is provided on an "as is" basis. To the fullest extent permitted by law,
-        DM Panda excludes all representations, warranties, conditions, and terms relating to our website and the use
+        The information on vone_dm's website is provided on an "as is" basis. To the fullest extent permitted by law,
+        vone_dm excludes all representations, warranties, conditions, and terms relating to our website and the use
         of this website.
       </p>
 
@@ -269,7 +269,7 @@ export function Disclaimer() {
 
       <h2>API Compliance</h2>
       <p>
-        DM Panda operates exclusively through Meta's official Graph API and Messenger API for Instagram. Automation
+        vone_dm operates exclusively through Meta's official Graph API and Messenger API for Instagram. Automation
         behavior is subject to Meta's platform rate limits, Community Guidelines, and Terms of Service, which may
         change from time to time.
       </p>
@@ -282,7 +282,7 @@ export function Disclaimer() {
 
       <h2>Limitation of Liability</h2>
       <p>
-        Your use of the Service is at your sole risk. DM Panda shall not be held responsible for any loss or damage
+        Your use of the Service is at your sole risk. vone_dm shall not be held responsible for any loss or damage
         arising from the use of third-party platform features, suspended accounts, or changes made by platform
         providers.
       </p>
@@ -293,13 +293,13 @@ export function Disclaimer() {
 export function RefundPolicy() {
   return (
     <LegalLayout
-      title="Refund Policy | DM Panda"
-      description="Refund Policy of DM Panda regarding subscriptions and transaction issues."
+      title="Refund Policy | vone_dm"
+      description="Refund Policy of vone_dm regarding subscriptions and transaction issues."
       keywords="refund policy dm panda, dm panda refund, instagram automation subscription refund"
       updated="November 06, 2025"
     >
       <p>
-        At DM Panda, we are committed to providing a reliable and effective service. Our refund policy is designed to
+        At vone_dm, we are committed to providing a reliable and effective service. Our refund policy is designed to
         be transparent and fair to all our users. Please read the following terms carefully.
       </p>
 
@@ -359,8 +359,8 @@ export function RefundPolicy() {
 export function DeleteAccountGuide() {
   return (
     <LegalLayout
-      title="Delete Account Guide | DM Panda"
-      description="Guide explaining the steps to permanently delete your DM Panda account."
+      title="Delete Account Guide | vone_dm"
+      description="Guide explaining the steps to permanently delete your vone_dm account."
       keywords="delete account dm panda, dm panda account deletion, remove instagram bot account"
     >
       <p>

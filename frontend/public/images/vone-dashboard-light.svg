@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <linearGradient id="brandL" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#405DE6"/><stop offset="50%" stop-color="#833AB4"/><stop offset="100%" stop-color="#FD1D1D"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="#f7f7f9"/>
+  <rect width="220" height="600" fill="#ffffff"/>
+  <rect x="220" y="0" width="1" height="600" fill="#e6e6ea"/>
+  <circle cx="28" cy="32" r="12" fill="url(#brandL)"/>
+  <text x="48" y="38" fill="#111114" font-size="18" font-weight="bold">vone_dm</text>
+  <g fill="#6b6b73" font-size="11">
+    <rect x="12" y="70" width="196" height="31" rx="8" fill="url(#brandL)"/>
+    <text x="26" y="90" fill="#ffffff" font-weight="bold">Dashboard</text>
+    <text x="26" y="126">Analytics</text>
+    <text x="26" y="160" font-size="9" fill="#a0a0a8">AUTOMATION</text>
+    <text x="26" y="188">Reply Templates</text>
+    <text x="26" y="214">Super Profile</text>
+    <text x="26" y="240">Welcome Message</text>
+    <text x="26" y="266">Convo Starter</text>
+    <text x="26" y="292">Inbox Menu</text>
+    <text x="26" y="318">Global Trigger</text>
+    <text x="26" y="344">DM Automation</text>
+    <text x="26" y="370">Post Automation</text>
+    <text x="26" y="396">Reel Automation</text>
+    <text x="26" y="422">Story Automation</text>
+    <text x="26" y="448">Live Automation</text>
+    <text x="26" y="560" font-size="10">@your_account</text>
+  </g>
+  <rect x="221" y="0" width="979" height="48" fill="#ffffff"/>
+  <text x="248" y="29" fill="#55555c" font-size="12">Dashboard / Overview</text>
+  <rect x="248" y="68" width="924" height="104" rx="14" fill="#151518"/>
+  <circle cx="300" cy="120" r="26" fill="url(#brandL)"/>
+  <text x="342" y="112" fill="#ffffff" font-size="16" font-weight="bold">Welcome back 👋</text>
+  <text x="342" y="136" fill="#c7c7ce" font-size="11">Your Instagram automations are running through the official Meta Graph API.</text>
+  <rect x="248" y="188" width="560" height="130" rx="14" fill="#ffffff" stroke="#e6e6ea"/>
+  <circle cx="302" cy="240" r="24" fill="url(#brandL)"/>
+  <text x="340" y="236" fill="#111114" font-size="14" font-weight="bold">@saichanduvlk</text>
+  <text x="340" y="256" fill="#8a8a92" font-size="11">Instagram Business · Connected</text>
+  <text x="280" y="300" fill="#111114" font-size="16" font-weight="bold">16</text><text x="280" y="312" fill="#9a9aa2" font-size="9">POSTS</text>
+  <text x="420" y="300" fill="#111114" font-size="16" font-weight="bold">1.4K</text><text x="420" y="312" fill="#9a9aa2" font-size="9">FOLLOWERS</text>
+  <text x="560" y="300" fill="#111114" font-size="16" font-weight="bold">178</text><text x="560" y="312" fill="#9a9aa2" font-size="9">FOLLOWING</text>
+  <rect x="824" y="188" width="160" height="130" rx="14" fill="#ffffff" stroke="#e6e6ea"/>
+  <text x="904" y="248" fill="#55555c" font-size="11" text-anchor="middle">LIVE</text>
+  <rect x="1000" y="188" width="172" height="130" rx="14" fill="#ffffff" stroke="#e6e6ea"/>
+  <text x="1086" y="248" fill="#55555c" font-size="11" text-anchor="middle">STORIES</text>
+  <g>
+    <rect x="248" y="336" width="292" height="228" rx="14" fill="#ffffff" stroke="#e6e6ea"/>
+    <rect x="552" y="336" width="292" height="228" rx="14" fill="#ffffff" stroke="#e6e6ea"/>
+    <rect x="856" y="336" width="316" height="228" rx="14" fill="#ffffff" stroke="#e6e6ea"/>
+    <g fill="none" stroke="#ececf0" stroke-width="12">
+      <circle cx="394" cy="440" r="48"/><circle cx="698" cy="440" r="48"/><circle cx="1014" cy="440" r="48"/>
+    </g>
+    <g fill="none" stroke="#22c584" stroke-width="12" stroke-linecap="round">
+      <circle cx="394" cy="440" r="48" stroke-dasharray="150 302" transform="rotate(-90 394 440)"/>
+      <circle cx="698" cy="440" r="48" stroke-dasharray="220 302" transform="rotate(-90 698 440)"/>
+      <circle cx="1014" cy="440" r="48" stroke-dasharray="270 302" transform="rotate(-90 1014 440)"/>
+    </g>
+    <g fill="#111114" font-size="20" font-weight="bold" text-anchor="middle">
+      <text x="394" y="448">0.00</text><text x="698" y="448">16.00</text><text x="1014" y="448">425.00</text>
+    </g>
+    <g fill="#9a9aa2" font-size="10" text-anchor="middle">
+      <text x="394" y="392">ACTIONS PER HOUR</text><text x="698" y="392">ACTIONS PER DAY</text><text x="1014" y="392">ACTIONS PER MONTH</text>
+    </g>
+  </g>
+</svg>

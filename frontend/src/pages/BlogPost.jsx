@@ -76,7 +76,7 @@ export default function BlogPost() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950 text-gray-900 dark:text-gray-100">
-      <Seo title={`${post.title} | DM Panda`} description={post.excerpt} ogType="article" />
+      <Seo title={`${post.title} | vone_dm`} description={post.excerpt} ogType="article" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-24">
         <div className="flex items-center justify-between gap-4 mb-7">
@@ -115,7 +115,7 @@ export default function BlogPost() {
               ? new Date(post.published_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
               : ""}
           </span>
-          <span>DM Panda Team</span>
+          <span>vone_dm Team</span>
         </div>
 
         {post.cover_image && (
@@ -133,7 +133,7 @@ export default function BlogPost() {
 
         <div className="my-8 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[#405DE6]/5 via-[#833AB4]/5 to-[#FCAF45]/5 border border-[#833AB4]/10 dark:border-[#833AB4]/20">
           <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
-            The DM Panda team builds Instagram automation tools used by creators, agencies, and e-commerce brands to
+            The vone_dm team builds Instagram automation tools used by creators, agencies, and e-commerce brands to
             save time, engage followers, and grow revenue. We share practical, platform-compliant strategies based on
             real customer workflows.
           </p>

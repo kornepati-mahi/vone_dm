@@ -4,12 +4,15 @@ import { KeyRound, Loader2, CheckCircle2, AlertTriangle } from "lucide-react";
 import Seo from "../components/Seo.jsx";
 import { post } from "../lib/api.js";
 import { useToast } from "../lib/ToastContext.jsx";
+import { useAuth } from "../lib/AuthContext.jsx";
 
 export function Recovery() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const { showSuccess, showError } = useToast();
   const token = params.get("token") || "";
+  const userId = params.get("userId") || "";
+  const secret = params.get("secret") || "";
   const [form, setForm] = useState({ password: "", confirm: "" });
   const [errors, setErrors] = useState({});
   const [busy, setBusy] = useState(false);
@@ -32,7 +35,16 @@ export function Recovery() {
 
     setBusy(true);
     try {
-      await post("/api/auth/reset-password", { token, password: form.password });
+      if (userId && secret) {
+        await post("/api/auth/recovery", {
+          userId,
+          secret,
+          newPassword: form.password,
+          confirmPassword: form.confirm,
+        });
+      } else {
+        await post("/api/auth/reset-password", { token, password: form.password });
+      }
       showSuccess("Password Reset Successful!");
       setDone(true);
     } catch (err) {
@@ -44,15 +56,15 @@ export function Recovery() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950 flex items-center justify-center px-4">
-      <Seo title="Reset Password | DM Panda" noIndex />
+      <Seo title="Reset Password | vone_dm" noIndex />
       <div className="w-full max-w-md">
         <Link to="/" className="flex items-center justify-center gap-2.5 mb-7">
-          <img src="/images/logo-96.webp" alt="DM Panda Logo" className="h-10 w-auto" />
-          <span className="text-2xl font-black tracking-tight">DM Panda</span>
+          <img src="/images/vone-logo.svg" alt="vone_dm Logo" className="h-10 w-auto" />
+          <span className="text-2xl font-black tracking-tight">vone_dm</span>
         </Link>
 
         <div className="rounded-3xl border border-gray-100 dark:border-white/[0.07] bg-gray-50 dark:bg-white/[0.03] p-7 shadow-sm">
-          {!token && (
+          {!token && !(userId && secret) && (
             <div className="flex items-start gap-3 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 p-4 mb-5 text-sm text-red-600 dark:text-red-300">
               <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
               Invalid recovery link. Please request a new password reset.
@@ -102,7 +114,7 @@ export function Recovery() {
                 </div>
                 <button
                   type="submit"
-                  disabled={busy || !token}
+                  disabled={busy || !(token || (userId && secret))}
                   className="w-full py-3.5 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-60"
                 >
                   {busy && <Loader2 className="w-4 h-4 animate-spin" />} Reset Password
@@ -127,21 +139,31 @@ export function Verify() {
   const navigate = useNavigate();
   const { showError } = useToast();
   const [status, setStatus] = useState("verifying");
+  const { refresh } = useAuth();
   const token = params.get("token") || "";
   const email = params.get("email") || "";
+  const userId = params.get("userId") || "";
+  const secret = params.get("secret") || "";
 
   useEffect(() => {
     let alive = true;
-    if (!token) {
+    if (!token && !(userId && secret)) {
       setStatus("invalid");
       return;
     }
     (async () => {
       try {
-        await post("/api/auth/verify-email", { token, email });
-        if (!alive) return;
-        setStatus("success");
-        setTimeout(() => navigate("/login?message=" + encodeURIComponent("Email verified! You can sign in now."), { replace: true }), 1800);
+        if (userId && secret) {
+          await post("/api/auth/verify-callback", { userId, secret });
+          await refresh();
+          if (alive) setStatus("success");
+          setTimeout(() => navigate("/dashboard", { replace: true }), 1600);
+        } else {
+          await post("/api/auth/verify-email", { token, email });
+          if (!alive) return;
+          setStatus("success");
+          setTimeout(() => navigate("/login?message=" + encodeURIComponent("Email verified! You can sign in now."), { replace: true }), 1800);
+        }
       } catch {
         if (alive) setStatus("failed");
       }
@@ -149,15 +171,15 @@ export function Verify() {
     return () => {
       alive = false;
     };
-  }, [token, email, navigate]);
+  }, [token, email, userId, secret, navigate, refresh]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950 flex items-center justify-center px-4">
-      <Seo title="Verify Email | DM Panda" noIndex />
+      <Seo title="Verify Email | vone_dm" noIndex />
       <div className="w-full max-w-md text-center">
         <Link to="/" className="inline-flex items-center gap-2.5 mb-7">
-          <img src="/images/logo-96.webp" alt="DM Panda Logo" className="h-10 w-auto" />
-          <span className="text-2xl font-black tracking-tight">DM Panda</span>
+          <img src="/images/vone-logo.svg" alt="vone_dm Logo" className="h-10 w-auto" />
+          <span className="text-2xl font-black tracking-tight">vone_dm</span>
         </Link>
 
         <div className="rounded-3xl border border-gray-100 dark:border-white/[0.07] bg-gray-50 dark:bg-white/[0.03] p-8 shadow-sm">
@@ -203,9 +225,9 @@ export function Verify() {
 export function NotFound() {
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950 flex items-center justify-center px-4">
-      <Seo title="Page Not Found | DM Panda" noIndex />
+      <Seo title="Page Not Found | vone_dm" noIndex />
       <div className="text-center max-w-md">
-        <img src="/images/logo-96.webp" alt="Confused Panda" className="w-24 h-24 mx-auto mb-6 opacity-80" />
+        <img src="/images/vone-logo.svg" alt="Confused Panda" className="w-24 h-24 mx-auto mb-6 opacity-80" />
         <p className="text-7xl font-black text-ig-purple mb-4">404</p>
         <h1 className="text-2xl font-bold mb-2">Oops! Looks like you've taken a wrong turn.</h1>
         <p className="text-gray-600 dark:text-gray-400 mb-2">The requested page could not be found.</p>

@@ -52,13 +52,13 @@ export default function Home() {
   return (
     <>
       <Seo
-        title="DM Panda | #1 Instagram DM Automation & Comment Auto-Reply Tool"
-        description="Automate your Instagram DMs, post comments, reels, story mentions, and link-in-bio with DM Panda. Certified Meta Business Partner since 2021. Safe, reliable, and affordable."
+        title="vone_dm | #1 Instagram DM Automation & Comment Auto-Reply Tool"
+        description="Automate your Instagram DMs, post comments, reels, story mentions, and link-in-bio with vone_dm. Certified Meta Business Partner since 2021. Safe, reliable, and affordable."
         keywords="instagram automation, instagram dm automation tool, comment auto reply, auto send message instagram, story mention auto reply, reel comment automation, link in bio page, dm panda"
         schema={[
-          { "@context": "https://schema.org", "@type": "WebSite", name: "DM Panda", url: "https://dmpanda.com/", description: "Instagram DM and Comment Automation Tool for creators and businesses." },
-          { "@context": "https://schema.org", "@type": "Organization", name: "DM Panda", url: "https://dmpanda.com/", logo: "https://dmpanda.com/images/logo.png" },
-          { "@context": "https://schema.org", "@type": "SoftwareApplication", name: "DM Panda", operatingSystem: "Web-based", applicationCategory: "BusinessApplication", description: "Certified Meta Partner Instagram automation platform for DMs, comments, reels, stories, and link-in-bio." },
+          { "@context": "https://schema.org", "@type": "WebSite", name: "vone_dm", url: "https://dmpanda.com/", description: "Instagram DM and Comment Automation Tool for creators and businesses." },
+          { "@context": "https://schema.org", "@type": "Organization", name: "vone_dm", url: "https://dmpanda.com/", logo: "/images/vone-logo.svg" },
+          { "@context": "https://schema.org", "@type": "SoftwareApplication", name: "vone_dm", operatingSystem: "Web-based", applicationCategory: "BusinessApplication", description: "Certified Meta Partner Instagram automation platform for DMs, comments, reels, stories, and link-in-bio." },
         ]}
       />
 
@@ -106,7 +106,7 @@ export default function Home() {
                   />
                 </h1>
                 <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-7 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                  Save time with DM Panda's intelligent automation.
+                  Save time with vone_dm's intelligent automation.
                 </p>
                 <div>
                   <Link
@@ -136,17 +136,17 @@ export default function Home() {
                 <div className="relative w-full max-w-xl">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#405DE6]/20 via-[#833AB4]/20 to-[#FD1D1D]/20 rounded-3xl blur-3xl" />
                   <picture>
-                    <source media="(max-width: 640px)" srcSet="/images/dashboard_dark_mobile.webp" />
+                    <source media="(max-width: 640px)" srcSet="/images/vone-dashboard-dark.svg" />
                     <img
-                      src="/images/dashboard_dark.webp"
-                      alt="DM Panda dashboard preview"
+                      src="/images/vone-dashboard-dark.svg"
+                      alt="vone_dm dashboard preview"
                       width={512}
                       height={340}
                       className="relative w-full h-auto rounded-2xl shadow-2xl border border-white/10 dark:border-white/10 animate-float"
                       loading="eager"
                       fetchPriority="high"
                       onError={(e) => {
-                        e.target.src = "/images/dashboard_light.webp";
+                        e.target.src = "/images/vone-dashboard-light.svg";
                       }}
                     />
                   </picture>
@@ -198,7 +198,7 @@ export default function Home() {
                       Badged Partner
                     </p>
                     <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-gray-900 dark:text-white">
-                      DM Panda is a Meta Business Partner
+                      vone_dm is a Meta Business Partner
                     </h2>
                     <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed max-w-2xl">
                       We've been a certified Meta Business Partner since 2021, offering peace of mind to our 22,000+
@@ -249,7 +249,7 @@ export default function Home() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <RevealSection>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12 sm:mb-16 text-gray-900 dark:text-white">
-                Why Choose DM Panda?
+                Why Choose vone_dm?
               </h2>
             </RevealSection>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
@@ -315,7 +315,7 @@ export default function Home() {
                   Visualize Your Auto Workflow
                 </h2>
                 <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  See how DM Panda automates your Instagram interactions seamlessly.
+                  See how vone_dm automates your Instagram interactions seamlessly.
                 </p>
                 <div className="flex justify-center lg:justify-start">
                   <Link
@@ -335,7 +335,7 @@ export default function Home() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
             <RevealSection>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-10 sm:mb-12 text-gray-900 dark:text-white">
-                Explore the Power of DMPanda
+                Explore the Power of vone_dm
               </h2>
             </RevealSection>
             <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -345,7 +345,7 @@ export default function Home() {
                 </h3>
                 <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
                   From auto-replying to comments and story mentions to follow-gated resources and rich DM templates,
-                  DMPanda provides a complete toolkit to put your Instagram engagement on autopilot. Discover how our
+                  vone_dm provides a complete toolkit to put your Instagram engagement on autopilot. Discover how our
                   features can save you time and grow your brand.
                 </p>
                 <Link
@@ -377,7 +377,7 @@ export default function Home() {
                 Ready to Boost Your Instagram Engagement?
               </h2>
               <p className="text-base sm:text-lg mb-7 text-gray-300 dark:text-gray-400 max-w-2xl mx-auto">
-                Join DM Panda today and start automating your DMs like a pro.
+                Join vone_dm today and start automating your DMs like a pro.
               </p>
               <Link
                 to="/login?mode=register"
