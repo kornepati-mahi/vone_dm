@@ -81,11 +81,6 @@ function PlanCard({ plan, yearly, onChoose }) {
           Most Popular
         </div>
       )}
-      {isPro && !isPopular && (
-        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 px-3.5 py-1 text-[11px] font-black uppercase tracking-wider text-white shadow-md whitespace-nowrap">
-          Includes {yearly ? "₹14,107" : "₹1,297"} Free Tools
-        </div>
-      )}
 
       <div>
         <div className="mb-6 pt-2">
@@ -356,49 +351,6 @@ export default function Pricing() {
               </table>
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Perks banner */}
-      <section className="py-14 sm:py-16 bg-gray-50 dark:bg-white/[0.015] border-y border-gray-100 dark:border-white/[0.05]">
-        <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider mb-5">
-            <ShieldCheck className="w-4 h-4" /> Exclusive Partner Benefit
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black mb-3">100% Free Partner Perks</h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto text-sm sm:text-base leading-relaxed">
-            Upgrade to vone_dm Pro and receive complimentary bonus subscriptions to industry-leading AI, video
-            editing, 4K streaming, and music tools, fulfilled officially by VV Deals. Sony LIV, ZEE5, Adobe Express,
-            OpenArt, Prime, Spotify, YouTube, CapCut &amp; Netflix.
-          </p>
-          <div className="mt-8 grid grid-cols-3 sm:grid-cols-5 gap-3 max-w-3xl mx-auto">
-            {["adobe-express", "sonyliv", "zee5", "openart", "amazon-prime", "spotify", "youtube", "capcut", "netflix"].map(
-              (n) => (
-                <div
-                  key={n}
-                  className="rounded-xl bg-white dark:bg-white/[0.04] border border-gray-200/70 dark:border-white/[0.07] p-3 flex items-center justify-center h-16"
-                >
-                  <img
-                    src={`/images/offers/${n}.png`}
-                    alt={n}
-                    className="max-h-9 w-auto object-contain"
-                    loading="lazy"
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                    }}
-                  />
-                </div>
-              )
-            )}
-          </div>
-          <a
-            href="https://vvdeals.cloud"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-7 text-sm font-bold text-ig-purple hover:underline"
-          >
-            Powered by vvdeals.cloud →
-          </a>
         </div>
       </section>
 

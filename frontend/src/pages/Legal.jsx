@@ -204,18 +204,6 @@ export function Terms() {
         until your effective plan allows them again or they are manually removed.
       </p>
 
-      <h2>Promotional Offers, Coupons &amp; Partner Perks</h2>
-      <ul>
-        <li>
-          <strong>Coupon Usage Ineligibility:</strong> promotional bonus perks are strictly not valid if any discount
-          coupon or promo code is applied at checkout.
-        </li>
-        <li>
-          <strong>Third-Party Fulfillment &amp; Liability:</strong> partner perks are fulfilled by official
-          third-party partners and are subject to stock availability.
-        </li>
-      </ul>
-
       <h2>Acceptable Use</h2>
       <p>
         We may terminate or suspend your access to our Service immediately, without prior notice or liability, for any

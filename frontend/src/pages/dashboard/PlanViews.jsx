@@ -113,7 +113,7 @@ export function MyPlan() {
             <CreditCard className="w-7 h-7 mb-4 opacity-90" />
             <h3 className="text-lg font-black mb-2">Unlock unlimited actions</h3>
             <p className="text-sm text-white/85 leading-relaxed">
-              Pro removes hourly, daily, and monthly caps and includes partner perks worth ₹14,107.
+              Pro removes hourly, daily, and monthly caps for unlimited automation.
             </p>
           </div>
           <Link
